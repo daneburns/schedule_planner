@@ -1,22 +1,20 @@
 
-
+// initialize some variables we will need
 var saveBtn = $(".saveBtn");
 var day = moment().days()
-console.log(day)
-console.log($("row:nth-child(2)").hasClass('saved'))
-saveBtn.on("click", function(e) {
-localStorage.setItem($(this).prev().val())
-  
-});
-
 var textAreas = $('textarea')
-
-textAreaClear()
-
 var currentHour = moment().hour();
 var hours = $('.hour')
 var hoursArray = [];
+// when clicking on save button, stores these variables to the local storage
+saveBtn.on("click", function(e) {
+localStorage.setItem($(this).prev().prev().text(), $(this).prev().val())
+  
+});
+//set currentDay
+$("#currentDay").text(moment().format("dddd, MMMM Do"));
 
+//create an array for data reference that holds the hours
 for (let i = 0; i < 9; i++) {
   hoursArray.push(parseInt(hours[i].textContent))
 }
@@ -39,13 +37,16 @@ for (let i = 0; i < hoursArray.length; i++) {
   }
   
 }
-
-console.log(textAreas[0].attributes[0])
-
+//invoke clear function on page load
+textAreaClear()
+// function for clearing everything on load, except if that data has been stored in localstorage
 function textAreaClear(){
   for (let i = 0; i < textAreas.length; i++) {
-    // if(!textAreas[i].attributes[0].value.contains('saved') ('saved')){
-    textAreas[i].value = ' '
-    // }
+  textAreas[i].value = ' '
+  if(localStorage.getItem(hoursArray[i]) != undefined){
+    textAreas[i].value = localStorage.getItem(hoursArray[i])
+  }
   }
 }
+
+
