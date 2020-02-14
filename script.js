@@ -1,31 +1,21 @@
 
 
 var saveBtn = $(".saveBtn");
+var day = moment().days()
+console.log(day)
+console.log($("row:nth-child(2)").hasClass('saved'))
 saveBtn.on("click", function(e) {
-  alert("clicked!", this.saveBtn[i]);
+localStorage.setItem($(this).prev().val())
   
 });
 
 var textAreas = $('textarea')
-console.log(textAreas[0])
 
 textAreaClear()
-function textAreaClear(){
-  for (let i = 0; i < textAreas.length; i++) {
-    var textAreaNum = textAreas[i]
-    if(!textAreaNum.hasClass('saved')){
-    textAreas[i].value = ''
-    }
-  }
-}
 
 var currentHour = moment().hour();
 var hours = $('.hour')
 var hoursArray = [];
-console.log(hours[0])
-
-
-console.log(textAreas)
 
 for (let i = 0; i < 9; i++) {
   hoursArray.push(parseInt(hours[i].textContent))
@@ -50,4 +40,12 @@ for (let i = 0; i < hoursArray.length; i++) {
   
 }
 
+console.log(textAreas[0].attributes[0])
 
+function textAreaClear(){
+  for (let i = 0; i < textAreas.length; i++) {
+    // if(!textAreas[i].attributes[0].value.contains('saved') ('saved')){
+    textAreas[i].value = ' '
+    // }
+  }
+}
